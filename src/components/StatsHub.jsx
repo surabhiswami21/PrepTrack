@@ -1,13 +1,17 @@
+import { useEffect, useState } from "react";
+import api, { getApiErrorMessage } from "../services/api";
+
 function StatsHub() {
+    const [stats, setStats] = useState(null);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    const totalSolved =
-        Number(localStorage.getItem("totalSolved")) || 0;
-
-    const totalSql =
-        Number(localStorage.getItem("totalSql")) || 0;
-
-    const totalRevision =
-        Number(localStorage.getItem("totalRevision")) || 0;
+    useEffect(() => {
+        api.get("/api/statistics")
+            .then(({ data }) => setStats(data))
+            .catch((error) => setError(getApiErrorMessage(error, "Unable to load statistics.")))
+            .finally(() => setLoading(false));
+    }, []);
 
     return (
 
@@ -15,24 +19,34 @@ function StatsHub() {
 
             <h1>Statistics 📈</h1>
 
+            {loading && <p>Loading statistics...</p>}
+
             <div className="card-container">
 
                 <div className="card">
                     <h2>DSA</h2>
-                    <p>{totalSolved}</p>
+                    <p>{stats?.dsaSolved ?? "-"}</p>
                 </div>
 
                 <div className="card">
                     <h2>SQL</h2>
-                    <p>{totalSql}</p>
+                    <p>{stats?.sqlQueries ?? "-"}</p>
                 </div>
 
                 <div className="card">
                     <h2>Revision</h2>
-                    <p>{totalRevision}</p>
+                    <p>{stats?.revisions ?? "-"}</p>
+                </div>
+
+                <div className="card">
+                    <h2>Planner</h2>
+                    <p>{stats ? `${stats.plannerCompleted}/${stats.plannerTotal}` : "-"}</p>
                 </div>
 
             </div>
+
+            {error && <p role="alert">{error}</p>}
+            {!loading && !error && !stats && <p>No statistics available yet.</p>}
 
         </div>
 

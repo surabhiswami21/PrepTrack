@@ -1,86 +1,93 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/authService";
 
 function Register() {
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
+    const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-
-      const response = await registerUser(formData);
-
-      alert(response.data);
-
-      setFormData({
+    const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: ""
-      });
+    });
 
-    } catch (error) {
+    const handleChange = (e) => {
 
-      alert("Registration Failed");
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
-      console.log(error);
+    const handleSubmit = async (e) => {
 
-    }
-  };
-return (
-  <div className="container">
+        e.preventDefault();
 
-  <h1>PrepTrack</h1>
-<h3>Create Your Account</h3>
+        try {
 
-    <form onSubmit={handleSubmit}>
+            const response = await registerUser(formData);
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Enter Name"
-        value={formData.name}
-        onChange={handleChange}
-      />
+            alert(response.data);
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter Email"
-        value={formData.email}
-        onChange={handleChange}
-      />
+            navigate("/login");
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Enter Password"
-        value={formData.password}
-        onChange={handleChange}
-      />
+        } catch (error) {
 
-      <button type="submit">
-        Register
-      </button>
+            console.log(error);
 
-    </form>
+            if (error.response?.data) {
+                alert(error.response.data);
+            } else {
+                alert("Registration Failed");
+            }
+        }
+    };
 
-  </div>
-);
-  
+    return (
+        <div className="container">
 
+            <h1>PrepTrack</h1>
+
+            <h3>Register</h3>
+
+            <form onSubmit={handleSubmit}>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                />
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+        </div>
+    );
 }
 
 export default Register;

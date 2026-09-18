@@ -1,36 +1,29 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, useCallback } from "react";
+import api, { getApiErrorMessage } from "../services/api";
 function DailyPlanner() {
 
     const [task, setTask] = useState("");
-    const [tasks, setTasks] = useState(() => {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
-});
+    const [tasks, setTasks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-   useEffect(() => {
-
-    fetchTasks();
-
-}, []);
-
-const fetchTasks = async () => {
+    const fetchTasks = useCallback(async () => {
+        setLoading(true);
+        setError("");
 
     try {
-
-        const response =
-            await axios.get(
-                "http://localhost:8081/api/tasks/all"
-            );
-
+        const response = await api.get("/api/tasks/all");
         setTasks(response.data);
-
     } catch (error) {
-
-        console.log(error);
-
+        setError(getApiErrorMessage(error, "Unable to load planner tasks. Please try again."));
+    } finally {
+        setLoading(false);
     }
+}, []);
+   useEffect(() => {
+    void Promise.resolve().then(fetchTasks);
 
-};
+}, [fetchTasks]);
     const addTask = async () => {
 
     if (task.trim() === "") {
@@ -41,23 +34,17 @@ const fetchTasks = async () => {
     }
 
     try {
-
-        await axios.post(
-            "http://localhost:8081/api/tasks/save",
-            {
+        setError("");
+        await api.post("/api/tasks/save", {
                 text: task,
                 done: false
-            }
-        );
-
-        fetchTasks();
+        });
+        await fetchTasks();
 
         setTask("");
 
     } catch (error) {
-
-        console.log(error);
-
+        setError(getApiErrorMessage(error, "Unable to save this task."));
     }
 
 };
@@ -65,39 +52,28 @@ const fetchTasks = async () => {
     const toggleTask = async (item) => {
 
     try {
-
-        await axios.put(
-            "http://localhost:8081/api/tasks/update",
-            {
+        setError("");
+        await api.put("/api/tasks/update", {
                 id: item.id,
                 text: item.text,
                 done: !item.done
-            }
-        );
-
-        fetchTasks();
+        });
+        await fetchTasks();
 
     } catch (error) {
-
-        console.log(error);
-
+        setError(getApiErrorMessage(error, "Unable to update this task."));
     }
 
 };
 const deleteTask = async (id) => {
 
     try {
-
-        await axios.delete(
-            `http://localhost:8081/api/tasks/delete/${id}`
-        );
-
-        fetchTasks();
+        setError("");
+        await api.delete(`/api/tasks/delete/${id}`);
+        await fetchTasks();
 
     } catch (error) {
-
-        console.log(error);
-
+        setError(getApiErrorMessage(error, "Unable to delete this task."));
     }
 
 };
@@ -116,6 +92,10 @@ const deleteTask = async (id) => {
         <button onClick={addTask}>
             Add
         </button>
+
+        {error && <p role="alert">{error}</p>}
+        {loading && <p>Loading tasks...</p>}
+        {!loading && !error && tasks.length === 0 && <p>No planner tasks yet.</p>}
 
         <br /><br />
 

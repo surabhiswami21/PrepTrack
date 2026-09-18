@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../services/api";
 function ContestTracker() {
 
     const [platform, setPlatform] = useState("");
@@ -7,19 +7,12 @@ function ContestTracker() {
     const [rating, setRating] = useState("");
     const [rank, setRank] = useState("");
     const [contestList, setContestList] = useState([]);
-    useEffect(() => {
-
-    fetchContests();
-
-}, []);
-const fetchContests = async () => {
+    const fetchContests = async () => {
 
     try {
 
         const response =
-            await axios.get(
-                "http://localhost:8081/api/contest/all"
-            );
+            await api.get("/api/contest/all");
 
         setContestList(response.data);
 
@@ -30,6 +23,12 @@ const fetchContests = async () => {
     }
 
 };
+
+    useEffect(() => {
+
+    void Promise.resolve().then(fetchContests);
+
+}, []);
 
    const addContest = async () => {
 
@@ -45,8 +44,8 @@ const fetchContests = async () => {
 
     try {
 
-        await axios.post(
-            "http://localhost:8081/api/contest/save",
+        await api.post(
+            "/api/contest/save",
             {
                 platform,
                 contestName,
@@ -76,9 +75,7 @@ const fetchContests = async () => {
 
     try {
 
-        await axios.delete(
-            `http://localhost:8081/api/contest/delete/${id}`
-        );
+        await api.delete(`/api/contest/delete/${id}`);
 
         fetchContests();
 

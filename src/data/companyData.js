@@ -2,46 +2,129 @@ export const companyData = [
   {
     id: 1,
     companyName: "TCS",
-
-    about:
-      "TCS is India's largest IT services and consulting company.",
-
+    about: "Tata Consultancy Services is a global IT services, consulting, and business solutions company serving clients across banking, retail, healthcare, and technology.",
+    industry: "IT services and consulting",
     founded: "1968",
-
     ceo: "K Krithivasan",
-
-    headquarters: "Mumbai",
-
-    employees: "600000+",
-
-    roles: [
-      "Assistant System Engineer",
-      "Software Developer",
-      "System Engineer",
-      "Java Developer"
-    ],
-
-    interviewTopics: [
-      "OOPs",
-      "DBMS",
-      "SQL",
-      "Java",
-      "Projects",
-      "HR Questions"
-    ],
-
-    expectations: [
-      "Good communication",
-      "Problem solving",
-      "Teamwork",
-      "Learning attitude"
-    ],
-
-    hiringProcess: [
-      "Aptitude Test",
-      "Coding Round",
-      "Technical Interview",
-      "HR Interview"
-    ]
+    headquarters: "Mumbai, India",
+    employees: "600,000+",
+    roles: ["Assistant System Engineer", "Software Developer", "System Engineer", "Java Developer"],
+    interviewTopics: ["OOPs", "DBMS", "SQL", "Java", "Projects", "HR questions"],
+    expectations: ["Good communication", "Problem solving", "Teamwork", "Learning attitude"],
+    hiringProcess: ["Aptitude test", "Coding round", "Technical interview", "Managerial or HR interview"],
+    focusAreas: ["Java and Python", "SQL and DBMS", "Data structures", "Cloud fundamentals"],
+    preparationTip: "Revise core CS subjects and practice timed aptitude and coding questions."
+  },
+  {
+    id: 2,
+    companyName: "Quantiphi",
+    about: "Quantiphi is an AI-first digital engineering company that builds data, machine learning, and cloud solutions for large organizations.",
+    industry: "AI, data, and cloud engineering",
+    founded: "2013",
+    ceo: "Asif Hasan and Paramdeep Singh",
+    headquarters: "Boston, United States",
+    employees: "2,000+",
+    roles: ["Data Engineer", "Machine Learning Engineer", "Cloud Engineer", "Software Engineer"],
+    interviewTopics: ["Python", "SQL", "Statistics", "Machine learning", "Case study", "Projects"],
+    expectations: ["Analytical thinking", "Strong fundamentals", "Clear problem explanation", "Curiosity about AI"],
+    hiringProcess: ["Online assessment", "Technical interview", "Case study or coding round", "HR interview"],
+    focusAreas: ["Python and SQL", "Probability and statistics", "Machine learning basics", "GCP or AWS"],
+    preparationTip: "Be ready to explain one data or ML project from raw data through deployment."
+  },
+  {
+    id: 3,
+    companyName: "Infosys",
+    about: "Infosys is a global consulting and digital services company helping organizations modernize technology, operations, and customer experiences.",
+    industry: "IT services and consulting",
+    founded: "1981",
+    ceo: "Salil Parekh",
+    headquarters: "Bengaluru, India",
+    employees: "320,000+",
+    roles: ["Systems Engineer", "Digital Specialist Engineer", "Technology Analyst", "Software Engineer"],
+    interviewTopics: ["Data structures", "OOPs", "DBMS", "Java or Python", "Puzzles", "Behavioral questions"],
+    expectations: ["Logical reasoning", "Adaptability", "Communication", "Ownership"],
+    hiringProcess: ["Online aptitude and coding test", "Technical interview", "HR or behavioral interview"],
+    focusAreas: ["Problem solving", "Object-oriented programming", "SQL", "Communication"],
+    preparationTip: "Practice arrays, strings, and basic SQL while preparing concise project explanations."
+  },
+  {
+    id: 4,
+    companyName: "Capgemini",
+    about: "Capgemini is a multinational technology and consulting partner delivering cloud, engineering, data, and business transformation services.",
+    industry: "Technology services and consulting",
+    founded: "1967",
+    ceo: "Aiman Ezzat",
+    headquarters: "Paris, France",
+    employees: "340,000+",
+    roles: ["Analyst", "Associate Software Engineer", "Data Analyst", "Cloud Engineer"],
+    interviewTopics: ["Pseudocode", "Aptitude", "Java or Python", "SQL", "Cloud basics", "Communication"],
+    expectations: ["Structured thinking", "Client awareness", "Team collaboration", "Willingness to learn"],
+    hiringProcess: ["Aptitude and technical assessment", "Coding or communication round", "Technical interview", "HR interview"],
+    focusAreas: ["Pseudocode and logic", "Java, Python, or .NET", "SQL", "Cloud and Agile basics"],
+    preparationTip: "Use clear, structured answers and connect your technical work to a practical business outcome."
+  },
+  {
+    id: 5,
+    companyName: "Intellipaat",
+    about: "Intellipaat is an online learning and professional certification platform focused on technology, data, cloud, and management skills.",
+    industry: "Edtech and professional learning",
+    founded: "2011",
+    ceo: "Sumeet Shukla",
+    headquarters: "Bengaluru, India",
+    employees: "500+",
+    roles: ["Software Developer", "Data Analyst", "Content Developer", "Learning Consultant"],
+    interviewTopics: ["Programming fundamentals", "SQL", "Data analysis", "Web development", "Projects", "Communication"],
+    expectations: ["Product mindset", "Learner empathy", "Execution", "Strong communication"],
+    hiringProcess: ["Screening round", "Role-specific assessment", "Technical or functional interview", "HR discussion"],
+    focusAreas: ["Relevant role fundamentals", "SQL and analytics", "Web technologies", "Presentation skills"],
+    preparationTip: "Show how you learn quickly and explain technical concepts in a way a beginner can understand."
+  },
+  {
+    id: 6,
+    companyName: "Cisco",
+    about: "Cisco develops networking, security, collaboration, and observability technology that connects people, devices, and organizations.",
+    industry: "Networking and cybersecurity",
+    founded: "1984",
+    ceo: "Chuck Robbins",
+    headquarters: "San Jose, United States",
+    employees: "80,000+",
+    roles: ["Software Engineer", "Network Engineer", "Security Engineer", "Technical Consulting Engineer"],
+    interviewTopics: ["Data structures", "Computer networks", "Operating systems", "C or C++", "Security basics", "System design"],
+    expectations: ["Strong engineering fundamentals", "Debugging ability", "Collaboration", "Customer focus"],
+    hiringProcess: ["Online assessment", "Technical phone screen", "Technical interviews", "Team and HR rounds"],
+    focusAreas: ["TCP/IP and networking", "C, C++, or Python", "Operating systems", "Cybersecurity concepts"],
+    preparationTip: "Know networking beyond definitions: be able to trace what happens when an application sends a request."
+  },
+  {
+    id: 7,
+    companyName: "HCLTech",
+    about: "HCLTech is a global technology company providing engineering, cloud, digital, and IT transformation services across multiple industries.",
+    industry: "IT services and engineering",
+    founded: "1976",
+    ceo: "C Vijayakumar",
+    headquarters: "Noida, India",
+    employees: "220,000+",
+    roles: ["Graduate Engineer Trainee", "Software Engineer", "Infrastructure Engineer", "Technical Lead"],
+    interviewTopics: ["Aptitude", "C or Java", "OOPs", "DBMS", "Networking", "Project discussion"],
+    expectations: ["Technical foundation", "Flexibility", "Problem solving", "Professional communication"],
+    hiringProcess: ["Cognitive and technical assessment", "Coding round", "Technical interview", "HR interview"],
+    focusAreas: ["Programming basics", "OOPs and DBMS", "Computer networks", "Aptitude and reasoning"],
+    preparationTip: "Balance coding practice with revision of networks, operating systems, DBMS, and your resume projects."
+  },
+  {
+    id: 8,
+    companyName: "EPAM",
+    about: "EPAM Systems is a global digital engineering and consulting company building software platforms, products, and experiences for enterprise clients.",
+    industry: "Digital engineering and consulting",
+    founded: "1993",
+    ceo: "Arkadiy Dobkin",
+    headquarters: "Newtown, United States",
+    employees: "50,000+",
+    roles: ["Software Engineer", "QA Automation Engineer", "Business Analyst", "DevOps Engineer"],
+    interviewTopics: ["Data structures", "Algorithms", "OOPs", "System design", "Testing", "Behavioral questions"],
+    expectations: ["Engineering depth", "English communication", "Independent learning", "Quality mindset"],
+    hiringProcess: ["Online assessment", "Technical screening", "Project or technical interviews", "HR discussion"],
+    focusAreas: ["Algorithms and complexity", "Java, .NET, or JavaScript", "Testing principles", "Cloud and system design"],
+    preparationTip: "Prepare to discuss tradeoffs, testing strategy, and why you chose a particular design for your projects."
   }
 ];

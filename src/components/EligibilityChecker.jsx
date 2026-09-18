@@ -1,91 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api, { getApiErrorMessage } from "../services/api";
 
 function EligibilityChecker() {
+    const [companies, setCompanies] = useState([]);
+    const [search, setSearch] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    const [cgpa, setCgpa] = useState("");
-    const [backlog, setBacklog] = useState("");
+    useEffect(() => {
+        api.get("/api/company-preparation/companies")
+            .then(({ data }) => Promise.all(data.map((company) =>
+                api.get(`/api/company-preparation/companies/${company.id}`)
+                    .then(({ data: detail }) => ({
+                        ...detail.company,
+                        recruitment: detail.recruitment
+                    }))
+            )))
+            .then(setCompanies)
+            .catch((error) => setError(getApiErrorMessage(error, "Unable to load eligibility data.")))
+            .finally(() => setLoading(false));
+    }, []);
 
-    const companies = [
-
-        {
-            name: "TCS",
-            cgpa: 6.5,
-            backlog: 1
-        },
-
-        {
-            name: "Infosys",
-            cgpa: 6,
-            backlog: 0
-        },
-
-        {
-            name: "Wipro",
-            cgpa: 6,
-            backlog: 1
-        },
-
-        {
-            name: "Accenture",
-            cgpa: 7,
-            backlog: 0
-        }
-
-    ];
+    const filteredCompanies = companies.filter((company) =>
+        `${company.companyName} ${company.batch} ${company.category}`.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
 
         <div className="dashboard">
 
             <h1>🎯 Eligibility Checker</h1>
+            <input placeholder="Search company or batch" value={search} onChange={(event) => setSearch(event.target.value)} />
+            {loading && <p>Loading eligibility data...</p>}
+            {error && <p role="alert">{error}</p>}
+            {!loading && !error && filteredCompanies.length === 0 && <p>No eligibility data available yet.</p>}
 
-            <input
-                type="number"
-                placeholder="CGPA"
-                value={cgpa}
-                onChange={(e)=>setCgpa(e.target.value)}
-            />
-
-            <input
-                type="number"
-                placeholder="Backlogs"
-                value={backlog}
-                onChange={(e)=>setBacklog(e.target.value)}
-            />
-
-            <br/><br/>
-
-            {
-
-                companies.map((company)=>(
+            {filteredCompanies.map((company) => {
+                const recruitment = company.recruitment || {};
+                return (
 
                     <div
-                        key={company.name}
+                        key={company.id}
                         className="card"
                     >
 
-                        <h2>{company.name}</h2>
-
-                        {
-
-                            Number(cgpa)>=company.cgpa &&
-                            Number(backlog)<=company.backlog
-
-                            ?
-
-                            <p>✅ Eligible</p>
-
-                            :
-
-                            <p>❌ Not Eligible</p>
-
-                        }
+                        <h2>{company.companyName}</h2>
+                        <p>Batch: {company.batch || "Not specified"}</p>
+                        <p>Eligibility: {recruitment.eligibility || "Not specified in available source material."}</p>
+                        <p>Roles: {recruitment.roles || "Not specified"}</p>
+                        <p>Location: {recruitment.location || company.location || "Not specified"}</p>
+                        <p>Joining: {recruitment.joining || "Not specified"}</p>
+                        {recruitment.educationGap && <p>Education gap: {recruitment.educationGap}</p>}
+                        {recruitment.notes && <p>{recruitment.notes}</p>}
 
                     </div>
-
-                ))
-
-            }
+                );
+            })}
 
         </div>
 

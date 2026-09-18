@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 function Jobs() {
   const [companyName, setCompanyName] = useState("");
@@ -8,9 +8,7 @@ function Jobs() {
   const [jobList, setJobList] = useState([]);
 const fetchJobs = useCallback(async () => {
     try {
-        const res = await axios.get(
-            "http://localhost:8081/api/jobs/all"
-        );
+        const res = await api.get("/api/jobs/all");
         setJobList(res.data);
     } catch (err) {
         console.log(err);
@@ -18,7 +16,7 @@ const fetchJobs = useCallback(async () => {
 }, []);
 
 useEffect(() => {
-    fetchJobs();
+  void Promise.resolve().then(fetchJobs);
 }, [fetchJobs]);
 
  
@@ -33,7 +31,7 @@ useEffect(() => {
     }
 
     try {
-      await axios.post("http://localhost:8081/api/jobs/save", {
+      await api.post("/api/jobs/save", {
         companyName,
         role,
         status,
@@ -51,7 +49,7 @@ useEffect(() => {
 
   const deleteJob = async (id) => {
     try {
-      await axios.delete(`http://localhost:8081/api/jobs/delete/${id}`);
+      await api.delete(`/api/jobs/delete/${id}`);
       await fetchJobs();
     } catch (err) {
       console.log(err);

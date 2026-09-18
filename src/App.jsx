@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
+
 import Dashboard from "./components/Dashboard";
 import Revision from "./components/Revision";
 import CompanyExplorer from "./components/CompanyExplorer";
@@ -18,102 +23,195 @@ import StatsHub from "./components/StatsHub";
 import DailyPlanner from "./components/DailyPlanner";
 import EligibilityChecker from "./components/EligibilityChecker";
 import ContestTracker from "./components/ContestTracker";
+import Jobs from "./components/Jobs";
+
+import Login from "./components/Login";
+import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import "./App.css";
 
 
-
-
 function App() {
-  return (
-    <BrowserRouter>
-    <Navbar />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
 
-<Route path="/revision" element={<Revision />} />
+    return (
 
-<Route
-    path="/companies"
-    element={<CompanyExplorer />}
-/>
+        <BrowserRouter>
 
-<Route
-    path="/company/:id"
-    element={<CompanyDetails />}
-/>
-<Route
-    path="/interviews"
-    element={<InterviewHub />}
-/>
-<Route
-path="/coding"
-element={<CodingHub />}
-/>
+            <div className="app-shell">
 
-<Route
-    path="/bookmarks"
-    element={<Bookmarks />}
-/>
+                <Navbar />
 
-<Route
-    path="/resume-prep"
-    element={<ResumePrep />}
-/>
+                <main className="main-content">
 
-<Route
-    path="/hr"
-    element={<HrHub />}
-/>
-<Route
-    path="/aptitude"
-    element={<AptitudeHub />}
-/>
+                    <Routes>
+
+                        {/* ===================== */}
+                        {/* PUBLIC ROUTES */}
+                        {/* ===================== */}
+
+                        <Route
+                            path="/login"
+                            element={<Login />}
+                        />
+
+                        <Route
+                            path="/register"
+                            element={<Register />}
+                        />
 
 
-<Route
-    path="/mock-interview"
-    element={<MockInterview />}
-/>
+                        {/* ===================== */}
+                        {/* PROTECTED ROUTES */}
+                        {/* ===================== */}
 
-<Route
-    path="/notes"
-    element={<NotesHub />}
-/>
+                        <Route
+                            element={
+                                <ProtectedRoute />
+                            }
+                        >
 
-<Route
-    path="/roadmap"
-    element={<RoadmapHub />}
-/>
+                            <Route
+                                path="/"
+                                element={<Dashboard />}
+                            />
 
-<Route
-    path="/stats"
-    element={<StatsHub />}
-/>
-<Route
-    path="/resume"
-    element={<ResumePrep />}
-/>
-<Route
-    path="/roadmap"
-    element={<RoadmapHub />}
-/>
-<Route
-    path="/planner"
-    element={<DailyPlanner />}
-/>
-<Route
-    path="/eligibility"
-    element={<EligibilityChecker />}
-/>
-<Route
-    path="/contest"
-    element={<ContestTracker />}
-/>
+                            <Route
+                                path="/revision"
+                                element={<Revision />}
+                            />
 
-      </Routes>
-      <Footer />
-    </BrowserRouter>
-  );
+                            <Route
+                                path="/companies"
+                                element={
+                                    <CompanyExplorer />
+                                }
+                            />
+
+                            <Route
+                                path="/company/:id"
+                                element={
+                                    <CompanyDetails />
+                                }
+                            />
+
+                            <Route
+                                path="/interviews"
+                                element={
+                                    <InterviewHub />
+                                }
+                            />
+
+                            <Route
+                                path="/coding"
+                                element={
+                                    <CodingHub />
+                                }
+                            />
+
+                            <Route
+                                path="/bookmarks"
+                                element={
+                                    <Bookmarks />
+                                }
+                            />
+
+                            <Route
+                                path="/resume-prep"
+                                element={
+                                    <ResumePrep />
+                                }
+                            />
+
+                            <Route
+                                path="/hr"
+                                element={
+                                    <HrHub />
+                                }
+                            />
+
+                            <Route
+                                path="/aptitude"
+                                element={
+                                    <AptitudeHub />
+                                }
+                            />
+
+                            <Route
+                                path="/mock-interview"
+                                element={
+                                    <MockInterview />
+                                }
+                            />
+
+                            <Route
+                                path="/notes"
+                                element={
+                                    <NotesHub />
+                                }
+                            />
+
+                            <Route
+                                path="/roadmap"
+                                element={
+                                    <RoadmapHub />
+                                }
+                            />
+
+                            <Route
+                                path="/stats"
+                                element={
+                                    <StatsHub />
+                                }
+                            />
+
+                            <Route
+                                path="/resume"
+                                element={
+                                    <ResumePrep />
+                                }
+                            />
+
+                            <Route
+                                path="/planner"
+                                element={
+                                    <DailyPlanner />
+                                }
+                            />
+
+                            <Route
+                                path="/eligibility"
+                                element={
+                                    <EligibilityChecker />
+                                }
+                            />
+
+                            <Route
+                                path="/contest"
+                                element={
+                                    <ContestTracker />
+                                }
+                            />
+
+                            <Route
+                                path="/jobs"
+                                element={
+                                    <Jobs />
+                                }
+                            />
+
+                        </Route>
+
+                    </Routes>
+
+                    <Footer />
+
+                </main>
+
+            </div>
+
+        </BrowserRouter>
+    );
 }
 
 export default App;

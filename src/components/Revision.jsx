@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 function Revision() {
 
@@ -11,8 +11,8 @@ function Revision() {
 
         try {
 
-            await axios.post(
-                "http://localhost:8081/api/revision/save",
+            await api.post(
+                "/api/revision/save",
                 {
                     subject,
                     topic
@@ -37,9 +37,7 @@ function Revision() {
 
         try {
 
-            const response = await axios.get(
-                "http://localhost:8081/api/revision/all"
-            );
+            const response = await api.get("/api/revision/all");
 
             setRevisionList(response.data);
 
